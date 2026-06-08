@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="Plan tasks, manage priorities and track daily progress."
+    >
+    <title>Daymark - Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">D</span>
+          <div>
+            <strong>Daymark</strong>
+            <span>Personal workspace</span>
+          </div>
+        </div>
+
+        <div class="today-block">
+          <span id="current-weekday">Monday</span>
+          <strong id="current-day">08</strong>
+          <p id="current-month-year">June 2026</p>
+        </div>
+
+        <nav class="filter-nav" aria-label="Task filters">
+          <button class="filter-button is-active" type="button" data-filter="all">
+            <span>All tasks</span>
+            <strong id="count-all">0</strong>
+          </button>
+          <button class="filter-button" type="button" data-filter="today">
+            <span>Today</span>
+            <strong id="count-today">0</strong>
+          </button>
+          <button class="filter-button" type="button" data-filter="upcoming">
+            <span>Upcoming</span>
+            <strong id="count-upcoming">0</strong>
+          </button>
+          <button class="filter-button" type="button" data-filter="completed">
+            <span>Completed</span>
+            <strong id="count-completed">0</strong>
+          </button>
+        </nav>
+
+        <div class="progress-card">
+          <div class="progress-ring" id="progress-ring">
+            <span id="progress-value">0%</span>
+          </div>
+          <div>
+            <strong>Weekly rhythm</strong>
+            <p id="progress-copy">Start with one small task.</p>
+          </div>
+        </div>
+
+        <button class="clear-button" id="clear-completed" type="button">
+          Clear completed
+        </button>
+      </aside>
+
+      <section class="task-workspace">
+        <header class="workspace-header">
+          <div>
+            <p class="eyebrow">Focus board / 01</p>
+            <h1>Make space for what matters.</h1>
+          </div>
+          <button class="mobile-add-button" id="mobile-add-button" type="button">
+            New task
+          </button>
+        </header>
+
+        <div class="toolbar">
+          <label class="search-field" for="task-search">
+            <span aria-hidden="true">/</span>
+            <input
+              id="task-search"
+              type="search"
+              placeholder="Search tasks"
+              autocomplete="off"
+            >
+          </label>
+
+          <label class="priority-filter" for="priority-filter">
+            <span>Priority</span>
+            <select id="priority-filter">
+              <option value="all">All priorities</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="task-summary">
+          <p id="result-summary">0 tasks</p>
+          <p><kbd>N</kbd> new task <span></span> <kbd>/</kbd> search</p>
+        </div>
+
+        <div class="task-list" id="task-list" aria-live="polite"></div>
+      </section>
+
+      <aside class="editor-panel" id="editor-panel">
+        <div class="editor-header">
+          <div>
+            <p class="eyebrow">Task details</p>
+            <h2 id="form-heading">Create a task</h2>
+          </div>
+          <button
+            class="close-editor-button"
+            id="close-editor"
+            type="button"
+            aria-label="Close task editor"
+          >
+            &times;
+          </button>
+        </div>
+
+        <form id="task-form">
+          <input id="editing-task-id" type="hidden">
+
+          <label class="form-field" for="task-title">
+            <span>Title</span>
+            <input
+              id="task-title"
+              type="text"
+              maxlength="100"
+              placeholder="What needs to happen?"
+              required
+            >
+          </label>
+
+          <label class="form-field" for="task-notes">
+            <span>Notes</span>
+            <textarea
+              id="task-notes"
+              maxlength="300"
+              rows="5"
+              placeholder="Add useful context..."
+            ></textarea>
+          </label>
+
+          <label class="form-field" for="task-date">
+            <span>Due date</span>
+            <input
+              id="task-date"
+              type="text"
+              inputmode="numeric"
+              maxlength="10"
+              pattern="\d{4}-\d{2}-\d{2}"
+              placeholder="YYYY-MM-DD"
+              title="Use the YYYY-MM-DD format"
+            >
+          </label>
+
+          <fieldset class="priority-field">
+            <legend>Priority</legend>
+            <div>
+              <label>
+                <input type="radio" name="priority" value="low">
+                <span>Low</span>
+              </label>
+              <label>
+                <input type="radio" name="priority" value="medium" checked>
+                <span>Medium</span>
+              </label>
+              <label>
+                <input type="radio" name="priority" value="high">
+                <span>High</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button class="save-task-button" type="submit">
+              <span id="submit-label">Add task</span>
+              <span aria-hidden="true">+</span>
+            </button>
+            <button class="cancel-edit-button" id="cancel-edit" type="button" hidden>
+              Cancel editing
+            </button>
+          </div>
+        </form>
+
+        <div class="editor-note">
+          <span aria-hidden="true"></span>
+          <p>Tasks are stored locally in this browser.</p>
+        </div>
+      </aside>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
