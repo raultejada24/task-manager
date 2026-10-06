@@ -2,7 +2,7 @@
 
 A responsive task manager with priorities, due dates, filters and local storage persistence.
 
-## Run
+## Run instructions
 
 ```bash
 npm start
